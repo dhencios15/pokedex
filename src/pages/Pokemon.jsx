@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import Loader from 'react-loader-spinner';
 
 import { useDocumentTitle } from 'hooks/useDocumentTitle';
+import { usePokemon } from 'hooks/usePokemon';
 
 import Layout from 'components/Layout';
-import { BackButton, PokemonProfile } from 'components/pokemon';
-import { usePokemon } from 'hooks/usePokemon';
-import Loader from 'react-loader-spinner';
+import BackButton from 'components/common/BackButton';
+import { PokemonProfile } from 'components/pokemon';
 
 const Pokemon = () => {
   const { pokemon } = useParams();

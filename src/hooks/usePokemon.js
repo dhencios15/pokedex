@@ -15,7 +15,7 @@ export async function fetchOnePokemon(name) {
         name: res.data.name,
         species: res.data.species,
         image: res.data.sprites,
-        types: res.data.types,
+        types: res.data.types.map(({ type }) => type.name),
       };
 
       const color = await getPokemonColor(sanitizePokemon.species.url);
