@@ -1,4 +1,4 @@
-const PokemonTypes = ({ types }) => (
+const PokemonCardTypes = ({ types }) => (
   <div className='flex items-center justify-center mt-2 space-x-2'>
     {types?.map(({ type }, i) => (
       <small
@@ -11,4 +11,4 @@ const PokemonTypes = ({ types }) => (
   </div>
 );
 
-export default PokemonTypes;
+export default PokemonCardTypes;

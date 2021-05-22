@@ -2,7 +2,7 @@ import { usePokemon } from 'hooks/usePokemon';
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import PokemonCardButtons from './PokemonCardButtons';
-import PokemonTypes from './PokemonTypes';
+import PokemonCardTypes from './PokemonCardTypes';
 
 const PokemonCard = React.forwardRef(({ pokemonName }, ref) => {
   const pokemonQuery = usePokemon(pokemonName);
@@ -24,7 +24,7 @@ const PokemonCard = React.forwardRef(({ pokemonName }, ref) => {
             </h1>
 
             {/* Pokemon types  */}
-            <PokemonTypes types={pokemon.types} />
+            <PokemonCardTypes types={pokemon.types} />
             {/* Action Buttons (show on hover) */}
             <PokemonCardButtons name={pokemon.name} />
           </div>
