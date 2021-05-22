@@ -34,6 +34,7 @@ const BaseInput = React.forwardRef(
           type={type}
           ref={ref}
           {...rest}
+          required
         />
         {error && (
           <>

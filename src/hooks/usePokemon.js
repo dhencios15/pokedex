@@ -25,8 +25,12 @@ export async function fetchOnePokemon(name) {
     .catch((err) => err.response.data);
 }
 
-export function usePokemon(name) {
-  return useQuery(['pokemon', name], async () => await fetchOnePokemon(name), {
-    enabled: !!name,
-  });
+export function usePokemon({ pokemon, isLocal = false }) {
+  return useQuery(
+    ['pokemon', pokemon],
+    async () => await fetchOnePokemon(pokemon),
+    {
+      enabled: !isLocal,
+    }
+  );
 }

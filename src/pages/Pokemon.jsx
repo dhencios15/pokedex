@@ -1,9 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 
 import { useDocumentTitle } from 'hooks/useDocumentTitle';
 import { usePokemon } from 'hooks/usePokemon';
+import { selectPokemon } from 'store/pokemonSlice';
 
 import Layout from 'components/Layout';
 import BackButton from 'components/common/BackButton';
@@ -11,11 +13,15 @@ import { PokemonProfile } from 'components/pokemon';
 
 const Pokemon = () => {
   const { pokemon } = useParams();
+  const { state } = useLocation();
+
+  const selectedPokemon = useSelector(selectPokemon);
+
   useDocumentTitle(
     `Pokemon | ${pokemon.charAt(0).toUpperCase() + pokemon.slice(1)}`
   );
 
-  const pokemonQuery = usePokemon(pokemon);
+  const pokemonQuery = usePokemon({ pokemon, isLocal: state.isLocal });
 
   return (
     <Layout>
@@ -33,7 +39,10 @@ const Pokemon = () => {
             </h1>
           </div>
         ) : (
-          <PokemonProfile pokemon={pokemonQuery.data} />
+          <PokemonProfile
+            pokemon={pokemonQuery.data || selectedPokemon}
+            isLocal={state.isLocal}
+          />
         )}
       </section>
     </Layout>

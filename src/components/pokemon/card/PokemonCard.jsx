@@ -6,7 +6,7 @@ import PokemonCardTypes from './PokemonCardTypes';
 
 const PokemonCard = React.forwardRef(
   ({ pokemonName, isLocal = false, pokemon = {} }, ref) => {
-    const pokemonQuery = usePokemon(pokemonName);
+    const pokemonQuery = usePokemon({ pokemon: pokemonName, isLocal });
 
     function renderPokemon() {
       if (!pokemonQuery.isLoading) {
@@ -27,7 +27,7 @@ const PokemonCard = React.forwardRef(
               {/* Pokemon types  */}
               <PokemonCardTypes types={pokemon.types} />
               {/* Action Buttons (show on hover) */}
-              <PokemonCardButtons name={pokemon.name} />
+              <PokemonCardButtons name={pokemon.name} pokemon={pokemon} />
             </div>
           </React.Fragment>
         );
@@ -47,7 +47,11 @@ const PokemonCard = React.forwardRef(
             {/* Pokemon types  */}
             <PokemonCardTypes types={pokemon.types} />
             {/* Action Buttons (show on hover) */}
-            <PokemonCardButtons name={pokemon.name} />
+            <PokemonCardButtons
+              name={pokemon.name}
+              isLocal={true}
+              pokemon={pokemon}
+            />
           </div>
         </React.Fragment>
       );

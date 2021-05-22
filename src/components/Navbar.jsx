@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className='absolute inset-x-0 top-0 flex items-center w-full -mt-14'>
       <BaseButton
-        onClick={() => history.push('/action/create-pokemon')}
+        onClick={() => history.push('/action/create')}
         color='primary'
       >
         Create Pokemon

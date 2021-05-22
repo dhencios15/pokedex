@@ -21,6 +21,6 @@ export function pokemonColor(color) {
     case 'red':
       return 'bg-red-400';
     default:
-      return 'bg-navy-lighter';
+      return 'bg-slate-light';
   }
 }

@@ -1,9 +1,15 @@
 import React from 'react';
+import { useQueryClient } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
 
 import { useTypes } from 'hooks/useTypes';
-import { setLocalPokemon } from 'store/pokemonSlice';
+import {
+  selectPokemon,
+  setLocalPokemons,
+  updateLocalPokemon,
+} from 'store/pokemonSlice';
 
 import Layout from 'components/Layout';
 import {
@@ -13,20 +19,44 @@ import {
   BaseCheckBox,
 } from 'components/common';
 
-const CreatePokemon = () => {
+const ActionPokemon = () => {
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { action } = useParams();
+  const { state } = useLocation();
+
   const typesQuery = useTypes();
+  const pokemon = useSelector(selectPokemon);
 
   const pokemonNameRef = React.useRef(null);
   const pokemonImageRef = React.useRef(null);
   const [types, setTypes] = React.useState([]);
   const [success, setSuccess] = React.useState(false);
 
+  // Basic Toaster [Message on Create/Update Success]
+  React.useEffect(() => setTimeout(() => setSuccess(false), 1500), [success]);
+  React.useEffect(() => {
+    if (state?.update) {
+      pokemonNameRef.current.value = pokemon?.name;
+      pokemonImageRef.current.value =
+        pokemon?.image?.other?.dream_world?.front_default || pokemon?.image;
+      setTypes(pokemon?.types);
+    }
+
+    return () => delete state?.update;
+  }, [state, pokemon]);
+
+  function onUpdateNonLocal(val) {
+    queryClient.setQueryData(['pokemon', pokemon.name], () => val);
+    console.log(val);
+  }
+
   function onCreatePokemon(e) {
     e.preventDefault();
 
     const values = {
-      id: uuidv4(),
+      id: pokemon.id || uuidv4(),
       name: pokemonNameRef?.current?.value,
       image:
         pokemonImageRef?.current?.value ||
@@ -34,14 +64,24 @@ const CreatePokemon = () => {
       types,
     };
 
-    dispatch(setLocalPokemon(values));
-    setSuccess(true);
-    pokemonNameRef.current.value = '';
-    pokemonImageRef.current.value = '';
-    setTypes([]);
-  }
+    if (state?.update) {
+      state?.isLocal
+        ? dispatch(updateLocalPokemon(values))
+        : onUpdateNonLocal(values);
 
-  React.useEffect(() => setTimeout(() => setSuccess(false), 1500), [success]);
+      history.goBack();
+    } else {
+      dispatch(setLocalPokemons(values));
+      setTypes([]);
+      pokemonNameRef.current.value = '';
+      pokemonImageRef.current.value = '';
+    }
+
+    if (state?.update) {
+    }
+
+    setSuccess(true);
+  }
 
   return (
     <Layout>
@@ -50,11 +90,11 @@ const CreatePokemon = () => {
         <div className='mx-auto w-72'>
           <form onSubmit={onCreatePokemon} className='flex flex-col'>
             <h1 className='mb-6 text-xl text-center text-white-400'>
-              Create Pokemon
+              {action.toUpperCase()} POKEMON
             </h1>
             {success && (
               <p className='text-sm text-center text-green-400'>
-                Pokemon Added
+                Operation Success
               </p>
             )}
             <BaseInput ref={pokemonNameRef} label='Name' />
@@ -68,7 +108,7 @@ const CreatePokemon = () => {
             )}
             <div className='grid w-full mt-6 place-items-center'>
               <BaseButton type='submit' color='primary'>
-                ADD POKEMON
+                {action.charAt(0).toUpperCase() + action.slice(1)} Pokemon
               </BaseButton>
             </div>
           </form>
@@ -78,4 +118,4 @@ const CreatePokemon = () => {
   );
 };
 
-export default CreatePokemon;
+export default ActionPokemon;

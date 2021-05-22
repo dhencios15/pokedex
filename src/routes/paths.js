@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = React.lazy(() => import('pages/Home'));
 const Pokemon = React.lazy(() => import('pages/Pokemon'));
-const CreatePokemon = React.lazy(() => import('pages/CreatePokemon'));
+const ActionPokemon = React.lazy(() => import('pages/ActionPokemon'));
 
 export const ROUTES = [
   {
@@ -17,7 +17,7 @@ export const ROUTES = [
   },
   {
     name: 'ACTION',
-    path: '/action/create-pokemon',
-    component: CreatePokemon,
+    path: '/action/:action',
+    component: ActionPokemon,
   },
 ];
