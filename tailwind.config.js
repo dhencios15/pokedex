@@ -33,6 +33,9 @@ module.exports = {
         },
         'hot-pink': '#fd2d78',
       },
+      width: {
+        'screen/1.5': 'calc(100vw / 1.5)',
+      },
     },
   },
   variants: {

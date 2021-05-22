@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentUrl: 'https://pokeapi.co/api/v2/pokemon?limit=10',
+  currentUrl: 'https://pokeapi.co/api/v2/pokemon?limit=12',
   nextPage: null,
 };
 
