@@ -21,7 +21,7 @@ const Pokemon = () => {
     `Pokemon | ${pokemon.charAt(0).toUpperCase() + pokemon.slice(1)}`
   );
 
-  const pokemonQuery = usePokemon({ pokemon, isLocal: state.isLocal });
+  const pokemonQuery = usePokemon({ pokemon, isLocal: true });
 
   return (
     <Layout>
@@ -41,7 +41,7 @@ const Pokemon = () => {
         ) : (
           <PokemonProfile
             pokemon={pokemonQuery.data || selectedPokemon}
-            isLocal={state.isLocal}
+            isLocal={state?.isLocal}
           />
         )}
       </section>

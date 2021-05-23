@@ -1,12 +1,16 @@
 import { usePokemon } from 'hooks/usePokemon';
 import React from 'react';
 import Loader from 'react-loader-spinner';
+
 import PokemonCardButtons from './PokemonCardButtons';
 import PokemonCardTypes from './PokemonCardTypes';
 
 const PokemonCard = React.forwardRef(
   ({ pokemonName, openModal, isLocal = false, pokemon = {} }, ref) => {
-    const pokemonQuery = usePokemon({ pokemon: pokemonName, isLocal });
+    const pokemonQuery = usePokemon({
+      pokemon: pokemonName,
+      isLocal,
+    });
 
     function renderPokemon() {
       if (!pokemonQuery.isLoading) {

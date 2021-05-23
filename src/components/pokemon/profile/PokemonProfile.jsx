@@ -36,7 +36,7 @@ const PokemonProfile = ({ pokemon, isLocal }) => (
         />
       </div>
 
-      {isLocal && (
+      {/* {isLocal && (
         <Link
           to={{
             pathname: '/action/update',
@@ -46,7 +46,16 @@ const PokemonProfile = ({ pokemon, isLocal }) => (
         >
           <PencilAltIcon className='text-blue-600 w-7 h-7' />
         </Link>
-      )}
+      )} */}
+      <Link
+        to={{
+          pathname: '/action/update',
+          state: { update: true, isLocal },
+        }}
+        className='absolute top-0 right-0 p-1 m-3 focus:outline-none'
+      >
+        <PencilAltIcon className='text-blue-600 w-7 h-7' />
+      </Link>
     </div>
   </div>
 );

@@ -4,8 +4,8 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 
 const BaseSelect = ({ selected, setSelected, options }) => {
   return (
-    <div className='w-72'>
-      <Listbox value={selected} onChange={(e) => setSelected(e.value)}>
+    <div className='w-52'>
+      <Listbox value={selected} onChange={(e) => setSelected(e)}>
         <div className='relative mt-1'>
           <Listbox.Button className='relative w-full py-2 pl-3 pr-10 text-left rounded-lg shadow-md cursor-default bg-white-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white-400 focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm'>
             <span className='block capitalize truncate'>{selected}</span>
@@ -22,12 +22,12 @@ const BaseSelect = ({ selected, setSelected, options }) => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='absolute w-full py-1 mt-1 overflow-auto text-base rounded-md shadow-lg bg-white-400 max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
+            <Listbox.Options className='absolute z-50 w-full py-1 mt-1 overflow-auto text-base rounded-md shadow-lg bg-white-400 max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
               {options.map((opt, idx) => (
                 <Listbox.Option
                   key={idx}
                   className={({ active }) =>
-                    `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+                    `${active ? 'text-gray-900 bg-gray-300' : 'text-gray-900'}
                           cursor-default select-none relative py-2 pl-10 pr-4`
                   }
                   value={opt}
@@ -37,9 +37,9 @@ const BaseSelect = ({ selected, setSelected, options }) => {
                       <span
                         className={`${
                           selected ? 'font-medium' : 'font-normal'
-                        } block truncate`}
+                        } block truncate capitalize`}
                       >
-                        {opt.name}
+                        {opt}
                       </span>
                       {selected ? (
                         <span

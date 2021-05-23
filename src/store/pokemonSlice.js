@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { filterPokemon } from 'helper/filterPokemon';
 
 const initialState = {
-  currentUrl: 'https://pokeapi.co/api/v2/pokemon?limit=12',
+  currentUrl: 'https://pokeapi.co/api/v2/pokemon?limit=50',
   nextPage: null,
   localPokemon: [],
   pokemon: {},
+  filterType: 'all',
 };
 
 export const pokemonSlice = createSlice({
@@ -56,6 +58,9 @@ export const pokemonSlice = createSlice({
 
       state.localPokemon = updatedPokemon;
     },
+    setFilterType: (state, { payload }) => {
+      state.filterType = payload;
+    },
   },
 });
 
@@ -68,12 +73,18 @@ export const {
   updateLocalPokemon,
   deleteLocalPokemon,
   mergeApiPokemon,
+  setFilterType,
 } = pokemonSlice.actions;
 
 // SELECTORS
 export const selectCurrentUrl = (state) => state.pokemon.currentUrl;
-export const selectLocalPokemon = (state) => state.pokemon.localPokemon;
+export const selectLocalPokemon = (state) => {
+  const pokemons = state.pokemon.localPokemon;
+  const selectedType = state.pokemon.filterType;
+  return filterPokemon(pokemons, selectedType);
+};
 export const selectPokemon = (state) => state.pokemon.pokemon;
 export const selectNextPage = (state) => state.pokemon.nextPage;
+export const selectFilterType = (state) => state.pokemon.filterType;
 
 export default pokemonSlice.reducer;

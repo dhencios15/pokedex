@@ -8,7 +8,7 @@ export function useTypes() {
       .then((res) => {
         const results = res.data.results.map((type) => type.name);
 
-        return results;
+        return ['all', ...results];
       })
       .catch((err) => err.response.data)
   );
