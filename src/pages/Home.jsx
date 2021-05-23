@@ -1,31 +1,59 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { usePokemons } from 'hooks/usePokemons';
-import { selectCurrentUrl, selectLocalPokemon } from 'store/pokemonSlice';
+import {
+  selectCurrentUrl,
+  selectLocalPokemon,
+  setLocalPokemon,
+} from 'store/pokemonSlice';
 
 import Layout from 'components/Layout';
 import Navbar from 'components/Navbar';
 import { PokemonCard, PokemonSkeleton } from 'components/pokemon';
+import DeleteModal from 'components/DeleteModal';
+import useModal from 'hooks/useModal';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { openModal, closeModal, isOpen } = useModal();
+
   const pokemons = useSelector(selectLocalPokemon);
   const currentUrl = useSelector(selectCurrentUrl);
   const pokemonsQuery = usePokemons(currentUrl);
 
+  const [selectedPokemon, setSelectedPokemon] = React.useState(null);
+
+  function onOpenModal(pokemon) {
+    setSelectedPokemon(pokemon);
+    openModal();
+  }
+
   function renderPokemonList() {
     if (!pokemonsQuery.isLoading && pokemonsQuery.status === 'success') {
       return pokemonsQuery.data.results.map((pokemon) => (
-        <PokemonCard key={pokemon.name} pokemonName={pokemon.name} />
+        <PokemonCard
+          openModal={onOpenModal}
+          key={pokemon.name}
+          pokemonName={pokemon.name}
+          isLocal={false}
+        />
       ));
     }
   }
 
   function renderLocalPokemonList() {
     return pokemons.map((pokemon) => (
-      <PokemonCard key={pokemon.id} isLocal={true} pokemon={pokemon} />
+      <PokemonCard
+        openModal={onOpenModal}
+        key={pokemon.id}
+        isLocal={true}
+        pokemon={pokemon}
+      />
     ));
   }
+
+  React.useEffect(() => dispatch(setLocalPokemon({})), [dispatch]);
 
   return (
     <Layout>
@@ -35,6 +63,13 @@ const Home = () => {
         {renderPokemonList()}
         {pokemonsQuery.isLoading &&
           [...Array(4)].map((_, i) => <PokemonSkeleton key={i} />)}
+
+        <DeleteModal
+          pokemon={selectedPokemon?.pokemon}
+          isOpen={isOpen}
+          closeModal={closeModal}
+          isLocal={selectedPokemon?.isLocal}
+        />
       </section>
     </Layout>
   );

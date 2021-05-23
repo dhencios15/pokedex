@@ -4,7 +4,7 @@ import { InformationCircleIcon, XCircleIcon } from '@heroicons/react/outline';
 import { useDispatch } from 'react-redux';
 import { setLocalPokemon } from 'store/pokemonSlice';
 
-const PokemonCardButtons = ({ name, isLocal = false, pokemon }) => {
+const PokemonCardButtons = ({ name, isLocal = false, pokemon, openModal }) => {
   const dispatch = useDispatch();
 
   function onGotoProfile() {
@@ -23,7 +23,10 @@ const PokemonCardButtons = ({ name, isLocal = false, pokemon }) => {
       >
         <InformationCircleIcon className='w-6 h-6 text-slate-lighter' />
       </Link>
-      <button className='rounded-full focus:outline-none'>
+      <button
+        onClick={() => openModal({ pokemon, isLocal })}
+        className='rounded-full focus:outline-none'
+      >
         <XCircleIcon className='w-6 h-6 text-hot-pink' />
       </button>
     </div>

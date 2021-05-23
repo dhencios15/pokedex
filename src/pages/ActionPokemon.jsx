@@ -77,9 +77,6 @@ const ActionPokemon = () => {
       pokemonImageRef.current.value = '';
     }
 
-    if (state?.update) {
-    }
-
     setSuccess(true);
   }
 

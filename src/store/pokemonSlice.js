@@ -12,7 +12,7 @@ export const pokemonSlice = createSlice({
   initialState,
   reducers: {
     setLocalPokemons: (state, { payload }) => {
-      state.localPokemon.push(payload);
+      state.localPokemon.unshift(payload);
     },
     setLocalPokemon: (state, { payload }) => {
       state.pokemon = payload;
@@ -35,6 +35,14 @@ export const pokemonSlice = createSlice({
       state.localPokemon = updatedPokemon;
       state.pokemon = payload;
     },
+    deleteLocalPokemon: (state, { payload }) => {
+      const oldPokemons = state.localPokemon;
+      const updatedPokemon = oldPokemons.filter(
+        (pokemon) => pokemon.id !== payload
+      );
+
+      state.localPokemon = updatedPokemon;
+    },
   },
 });
 
@@ -45,6 +53,7 @@ export const {
   setLocalPokemons,
   setLocalPokemon,
   updateLocalPokemon,
+  deleteLocalPokemon,
 } = pokemonSlice.actions;
 
 // SELECTORS

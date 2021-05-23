@@ -5,7 +5,7 @@ import PokemonCardButtons from './PokemonCardButtons';
 import PokemonCardTypes from './PokemonCardTypes';
 
 const PokemonCard = React.forwardRef(
-  ({ pokemonName, isLocal = false, pokemon = {} }, ref) => {
+  ({ pokemonName, openModal, isLocal = false, pokemon = {} }, ref) => {
     const pokemonQuery = usePokemon({ pokemon: pokemonName, isLocal });
 
     function renderPokemon() {
@@ -27,7 +27,11 @@ const PokemonCard = React.forwardRef(
               {/* Pokemon types  */}
               <PokemonCardTypes types={pokemon.types} />
               {/* Action Buttons (show on hover) */}
-              <PokemonCardButtons name={pokemon.name} pokemon={pokemon} />
+              <PokemonCardButtons
+                openModal={openModal}
+                name={pokemon.name}
+                pokemon={pokemon}
+              />
             </div>
           </React.Fragment>
         );
@@ -51,6 +55,7 @@ const PokemonCard = React.forwardRef(
               name={pokemon.name}
               isLocal={true}
               pokemon={pokemon}
+              openModal={openModal}
             />
           </div>
         </React.Fragment>
@@ -60,7 +65,7 @@ const PokemonCard = React.forwardRef(
     return (
       <div
         ref={ref}
-        className='relative z-30 flex flex-col items-center px-4 py-2 duration-500 transform rounded-lg group drop-shadow-lg bg-slate-base hover:scale-105'
+        className='relative z-10 flex flex-col items-center px-4 py-2 duration-500 transform rounded-lg group drop-shadow-lg bg-slate-base hover:scale-105'
       >
         {isLocal ? (
           renderLocalPokemon()
