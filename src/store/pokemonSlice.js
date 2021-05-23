@@ -11,6 +11,19 @@ export const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
   reducers: {
+    mergeApiPokemon: (state, { payload }) => {
+      const seen = new Set();
+      // update state pokemon
+      const updatePokemon = [...state.localPokemon, payload];
+      // since we're persisting data, we need to removeDuplicate pokemon
+      const removeDuplicate = updatePokemon.filter((el) => {
+        const duplicate = seen.has(el.id);
+        seen.add(el.id);
+        return !duplicate;
+      });
+
+      state.localPokemon = removeDuplicate;
+    },
     setLocalPokemons: (state, { payload }) => {
       state.localPokemon.unshift(payload);
     },
@@ -54,11 +67,13 @@ export const {
   setLocalPokemon,
   updateLocalPokemon,
   deleteLocalPokemon,
+  mergeApiPokemon,
 } = pokemonSlice.actions;
 
 // SELECTORS
 export const selectCurrentUrl = (state) => state.pokemon.currentUrl;
 export const selectLocalPokemon = (state) => state.pokemon.localPokemon;
 export const selectPokemon = (state) => state.pokemon.pokemon;
+export const selectNextPage = (state) => state.pokemon.nextPage;
 
 export default pokemonSlice.reducer;

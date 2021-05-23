@@ -35,7 +35,11 @@ const ActionPokemon = () => {
   const [success, setSuccess] = React.useState(false);
 
   // Basic Toaster [Message on Create/Update Success]
-  React.useEffect(() => setTimeout(() => setSuccess(false), 1500), [success]);
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setSuccess(false), 1500);
+    return () => clearTimeout(timeout);
+  }, [success]);
+
   React.useEffect(() => {
     if (state?.update) {
       pokemonNameRef.current.value = pokemon?.name;

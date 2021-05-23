@@ -23,12 +23,14 @@ const PokemonCardButtons = ({ name, isLocal = false, pokemon, openModal }) => {
       >
         <InformationCircleIcon className='w-6 h-6 text-slate-lighter' />
       </Link>
-      <button
-        onClick={() => openModal({ pokemon, isLocal })}
-        className='rounded-full focus:outline-none'
-      >
-        <XCircleIcon className='w-6 h-6 text-hot-pink' />
-      </button>
+      {isLocal && (
+        <button
+          onClick={() => openModal({ pokemon, isLocal })}
+          className='rounded-full focus:outline-none'
+        >
+          <XCircleIcon className='w-6 h-6 text-hot-pink' />
+        </button>
+      )}
     </div>
   );
 };

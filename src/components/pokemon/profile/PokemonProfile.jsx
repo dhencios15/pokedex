@@ -29,10 +29,10 @@ const PokemonProfile = ({ pokemon, isLocal }) => (
 
         {/* Pokemon Evo Images  */}
         <PokemonImages
-          front_default={pokemon?.image.front_default || pokemon.image}
-          front_shiny={pokemon?.image.front_shiny || pokemon.image}
-          back_default={pokemon?.image.back_default || pokemon.image}
-          back_shiny={pokemon?.image.back_shiny || pokemon.image}
+          front_default={pokemon?.otherImages?.front_default || pokemon.image}
+          front_shiny={pokemon?.otherImages?.front_shiny || pokemon.image}
+          back_default={pokemon?.otherImages?.back_default || pokemon.image}
+          back_shiny={pokemon?.otherImages?.back_shiny || pokemon.image}
         />
       </div>
 
