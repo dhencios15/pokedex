@@ -23,6 +23,7 @@ const BaseInput = React.forwardRef(
           </div>
         </div>
         <input
+          title='baseInput'
           aria-required={dot}
           aria-invalid={!!error}
           className={`${style.default} ${icon ? 'pl-12' : ''}  

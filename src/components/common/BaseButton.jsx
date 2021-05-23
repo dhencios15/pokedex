@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 
 const BaseButton = forwardRef(({ color, size, children, ...props }, ref) => (
   <button
+    title='baseButton'
     {...props}
     ref={ref}
     className={`${colors[color]} ${

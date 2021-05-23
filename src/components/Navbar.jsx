@@ -30,7 +30,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className='absolute inset-x-0 top-0 flex items-center w-full -mt-14'>
+    <nav className='absolute inset-x-0 top-0 flex flex-col items-center w-full md:flex-row -mt-14'>
       <BaseButton
         onClick={() => history.push('/action/create')}
         color='primary'
