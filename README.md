@@ -1,6 +1,6 @@
 # POKEMON x MUGNA
 
-![Image of Website](https://ibb.co/c87Pm8D)
+![Image of Website](https://i.ibb.co/6tf2dtg/image.png)
 
 ### SERVER (API) REPO -
 

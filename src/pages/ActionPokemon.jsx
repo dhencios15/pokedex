@@ -70,7 +70,7 @@ const ActionPokemon = () => {
 
     if (state?.update) {
       state?.isLocal
-        ? dispatch(updateLocalPokemon(values))
+        ? dispatch(updateLocalPokemon({ ...pokemon, ...values }))
         : onUpdateNonLocal(values);
 
       history.goBack();

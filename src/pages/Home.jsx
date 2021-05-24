@@ -45,6 +45,7 @@ const Home = () => {
   //   }
   // }
 
+  // Infinite Scrolling
   const observer = React.useRef();
   const lastPokemonRef = React.useCallback(
     (node) => {
